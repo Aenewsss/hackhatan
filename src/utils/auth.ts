@@ -11,12 +11,10 @@ const auth = getAuth();
 
 export const login = () => {
 
-    signInWithRedirect(auth, provider);
-return
     
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        signInWithRedirect(auth, provider);
-    } else {
+    // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    //     signInWithRedirect(auth, provider);
+    // } else {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -36,26 +34,26 @@ return
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
             });
-    }
+    // }
 }
 
-setTimeout(() => {
-    getRedirectResult(auth)
-        .then(async (result) => {
+// setTimeout(() => {
+//     getRedirectResult(auth)
+//         .then(async (result) => {
 
-            console.log(result)
-            alert(`result - ${result}`)
-            // @ts-ignore
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
+//             console.log(result)
+//             alert(`result - ${result}`)
+//             // @ts-ignore
+//             const credential = GoogleAuthProvider.credentialFromResult(result);
+//             const token = credential?.accessToken;
 
-            // @ts-ignore
-            const user = result.user;
-            cookie.set('hackathan_token', await user.getIdToken())
-            window.location.assign('/')
+//             // @ts-ignore
+//             const user = result.user;
+//             cookie.set('hackathan_token', await user.getIdToken())
+//             window.location.assign('/')
 
-        }).catch((error) => {
-            console.log('error', error)
-            // ...
-        });
-}, 3000);
+//         }).catch((error) => {
+//             console.log('error', error)
+//             // ...
+//         });
+// }, 3000);
