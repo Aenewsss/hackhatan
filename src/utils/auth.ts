@@ -10,7 +10,9 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 export const login = () => {
-    // Verificar se o usuário está em um dispositivo móvel
+    signInWithRedirect(auth, provider);
+    return
+
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         signInWithRedirect(auth, provider);
     } else {
@@ -36,22 +38,21 @@ export const login = () => {
     }
 }
 
-getRedirectResult(auth)
-    .then((result) => {
-        // This gives you a Google Access Token. You can use it to access Google APIs.
-        alert(`chegou aqui ${result}`)
-        console.log('result', result)
-        // @ts-ignore
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // @ts-ignore
-        const token = credential.accessToken;
+setTimeout(() => {
 
-        // The signed-in user info.
-        // @ts-ignore
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-    }).catch((error) => {
-        console.log('error', error)
-        // ...
-    });
+    getRedirectResult(auth)
+        .then(async (result) => {
+            // @ts-ignore
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+
+            // @ts-ignore
+            const user = result.user;
+            cookie.set('hackathan_token', await user.getIdToken())
+            window.location.assign('/')
+
+        }).catch((error) => {
+            console.log('error', error)
+            // ...
+        });
+}, 3000);
