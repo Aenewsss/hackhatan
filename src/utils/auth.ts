@@ -10,9 +10,6 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 export const login = () => {
-    signInWithRedirect(auth, provider);
-    return
-
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         signInWithRedirect(auth, provider);
     } else {
