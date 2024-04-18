@@ -1,5 +1,6 @@
 import Firebase from "@/app/api/firebase";
 import { GoogleAuthProvider, signInWithPopup, getAuth, signInWithRedirect, getRedirectResult } from "firebase/auth";
+// @ts-ignore
 import cookie from "js-cookie";
 
 //initialize App 
@@ -40,10 +41,13 @@ getRedirectResult(auth)
         // This gives you a Google Access Token. You can use it to access Google APIs.
         alert(`chegou aqui ${result}`)
         console.log('result', result)
+        // @ts-ignore
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        // @ts-ignore
         const token = credential.accessToken;
 
         // The signed-in user info.
+        // @ts-ignore
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
