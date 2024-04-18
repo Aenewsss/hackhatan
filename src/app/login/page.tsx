@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Login() {
     return (
         <main className="h-screen">
-            <Image className="h-1/2" src="/auth/first-carousel.svg" width={300} height={300} alt="Primeira Imagem de fundo" />
+            <Image className="h-1/2 w-full object-cover" src="/auth/first-carousel.svg" width={300} height={300} alt="Primeira Imagem de fundo" />
             <div className="flex h-1/2 flex-col px-4 gap-10">
                 <h1 className="text-2xl font-bold">Arquivo Nacional</h1>
                 <div className="flex flex-col gap-2">
