@@ -10,6 +10,10 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 export const login = () => {
+
+    signInWithRedirect(auth, provider);
+return
+    
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         signInWithRedirect(auth, provider);
     } else {
@@ -36,9 +40,11 @@ export const login = () => {
 }
 
 setTimeout(() => {
-
     getRedirectResult(auth)
         .then(async (result) => {
+
+            console.log(result)
+            alert(`result - ${result}`)
             // @ts-ignore
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential?.accessToken;
