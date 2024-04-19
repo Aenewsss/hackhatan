@@ -20,11 +20,11 @@ export const login = () => {
             // The signed-in user info.
             const user = result.user;
 
-            console.log(user)
-
             storageService.setItem(UserEnum.USER_NAME, user.displayName)
             storageService.setItem(UserEnum.USER_EMAIL, user.email)
             storageService.setItem(UserEnum.USER_ID, user.uid)
+
+            await Firebase.addUserToDatabase(user.uid)
 
             cookie.set('hackathan_token', await user.getIdToken())
             window.location.assign('/')

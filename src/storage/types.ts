@@ -32,16 +32,23 @@ export enum DocumentStatusEnum {
 }
 
 export interface IMetadataDocument {
-    title:string
-    dates:string
-    content:string
-    access_points:string
+    title: string
+    dates: string
+    content: string
+    access_points: string
     social_tags: ISocialTags
 }
 
 export interface ISocialTags {
     race: string
-    gender:string
-    sexuality:string
-    regionality:string
+    gender: string
+    sexuality: string
+    regionality: string
+}
+
+export interface IUser {
+    points: number
+    number_of_descriptions: number
+    number_of_validations: number
+    level: number
 }
