@@ -2,6 +2,8 @@ import { UserEnum } from "./types"
 
 class UserService {
     getUser() {
+        if (typeof window == 'undefined') return { email: '', level: 0, name: 1, points: 0 }
+
         const email = localStorage.getItem(UserEnum.USER_EMAIL) || ''
         const level = Number(localStorage.getItem(UserEnum.USER_LEVEL))
         const name = localStorage.getItem(UserEnum.USER_NAME)
