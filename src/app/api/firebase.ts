@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { IUser } from "@/storage/types";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { child, equalTo, get, getDatabase, query, ref, set } from "firebase/database";
+import { child, equalTo, get, getDatabase, limitToLast, orderByChild, query, ref, set } from "firebase/database";
 
 class FirebaseConfig {
 
@@ -120,6 +120,40 @@ class FirebaseConfig {
         }
     }
 
+    getTop10UsersByPoints = async () => {
+        try {
+            Firebase.initializeFirebaseApp()
+            const db = getDatabase();
+            const usersRef = ref(db, 'users');
+
+            const snapshot = await get(usersRef);
+
+            if (snapshot.exists()) {
+
+                const topUsers: IUser[] = [];
+
+                snapshot.forEach((childSnapshot) => {
+                    const userData = childSnapshot.val() as IUser;
+
+                    if (topUsers.length < 10) {
+                        topUsers.push(userData)
+                    } else {
+                        const smallestPontuation = topUsers.filter(el => el.points <= userData.points).sort((a, b) => a.points - b.points)[0]
+                        const indexToRemove = topUsers.findIndex(el => el == smallestPontuation)
+                        topUsers.splice(indexToRemove, 1)
+                    }
+                });
+
+                return topUsers.sort((a, b) => a.points - b.points).reverse()
+            } else {
+                console.log("Nenhum usuário encontrado");
+                return []
+            }
+        } catch (error) {
+            console.error("Erro ao buscar os top 10 usuários por pontos:", error);
+            return []
+        }
+    };
 
 }
 

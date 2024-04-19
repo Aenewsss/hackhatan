@@ -17,8 +17,18 @@ export default function SwitchAction() {
     const [userIsValidator, setUserIsValidator] = useState(false);
 
     useEffect(() => {
+        verifyParams()
         verifyIfUserIsValidator()
     }, [pathname, searchParams]);
+
+    function verifyParams() {
+        const params = new URLSearchParams(searchParams);
+
+        if (!params.size) {
+            params.set('action', 'description')   
+            replace(`${pathname}?${params.toString()}`);
+        }
+    }
 
     function getButtonStyle(action: "description" | "validation") {
         const params = new URLSearchParams(searchParams);
@@ -38,8 +48,6 @@ export default function SwitchAction() {
 
     async function verifyIfUserIsValidator() {
         const user = await Firebase.getUserById(userService.getUser().id)
-
-        console.log(user)
 
         const userLevel = user?.level
 

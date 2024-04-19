@@ -11,8 +11,12 @@ import { formatDate } from "@/utils/formatDate";
 import userService from "@/storage/user.service";
 import { getDocIcon } from "@/utils/getDocIcon";
 import { getFileName } from "@/utils/getFileName";
+import { useSearchParams } from "next/navigation";
 
 export default function DocumetsToDoList() {
+
+    const searchParams = useSearchParams()
+
     const [documents, setDocuments] = useState<IDocument[]>([]);
     const [showDocument, setShowDocument] = useState(false);
     const [selectedDoc, setSelectedDoc] = useState<{ doc_id: string, final_date: string, urgency: number, doc_type: string }>();
@@ -63,13 +67,31 @@ export default function DocumetsToDoList() {
             await update(docRef, {
                 responsible_user: userService.getUser().id,
                 status: DocumentStatusEnum.IN_PROGRESS,
-            }); 
+            });
         } catch (error) {
             console.error("Erro ao atribuir documento ao usuário:", error);
         }
     }
 
-    if(!documents || documents.length == 0) return <p className="text-red-500">Nenhum documento disponível no momento</p>
+    function getPageByAction() {
+        const params = new URLSearchParams(searchParams)
+
+        const actionParam = params.get('action')?.toString()
+
+        return actionParam == 'description'
+            ? `/descrever/${selectedDoc?.doc_id}`
+            : `/validar/${selectedDoc?.doc_id}`
+    }
+
+    function getButtonTextByAction() {
+        const params = new URLSearchParams(searchParams)
+
+        const actionParam = params.get('action')?.toString()
+
+        return actionParam == 'description' ? 'Inicar Descrição' : 'Iniciar Validação'
+    }
+
+    if (!documents || documents.length == 0) return <p className="text-red-500">Nenhum documento disponível no momento</p>
 
     return (
         <>
@@ -111,7 +133,10 @@ export default function DocumetsToDoList() {
                             <Urgency urgency={selectedDoc.urgency} />
                         </div>
                     </div>
-                    <Link onClick={_ => assignDocToUser(selectedDoc.doc_id)} href={`/descrever/${selectedDoc.doc_id}`} className="bg-green-600 text-white p-4 rounded-2xl text-2xl">Iniciar Descrição</Link>
+                    <Link onClick={_ => assignDocToUser(selectedDoc.doc_id)} href={getPageByAction()} className="bg-green-600 text-white p-4 rounded-2xl text-2xl">
+                        {getButtonTextByAction()}
+                    </Link>
+
                 </div>
             }
         </>
