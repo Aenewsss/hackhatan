@@ -30,6 +30,13 @@ export default function Profile() {
         replace(`${pathname}?${params.toString()}`);
     }
 
+    function clearFilters(){
+        const params = new URLSearchParams(searchParams);
+        params.delete('status')
+        params.delete('text')
+        replace(pathname)
+    }
+
     return (
         <div className="flex flex-col gap-2 mt-10">
             <h2>Pesquisa</h2>
@@ -44,6 +51,7 @@ export default function Profile() {
                 <button onClick={_ => filterStatus(FiltersEnum.CONCLUDED)} className="hover:scale-105 transition-all rounded-full bg-green-500 text-white px-3 py-2">Concluídos</button>
                 <button onClick={_ => filterStatus(FiltersEnum.TO_CHANGE)} className="hover:scale-105 transition-all rounded-full bg-orange-500 text-white px-3 py-2">Alteração</button>
             </div>
+            <span onClick={clearFilters} className="cursor-pointer underline text-black text-end text-sm">Limpar filtros</span>
         </div>
     )
 }

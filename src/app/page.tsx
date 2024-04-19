@@ -12,8 +12,8 @@ export default function Home() {
       <Profile />
       <Suspense fallback={<div className="text-black">Carregando</div>} >
         <Filters />
+        <DocumentsList />
       </Suspense>
-      <DocumentsList />
     </main>
   );
 }

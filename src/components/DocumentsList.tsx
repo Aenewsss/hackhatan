@@ -6,14 +6,39 @@ import { useEffect, useState } from "react";
 import Urgency from "./Urgency";
 import Image from "next/image";
 import { getDocIcon } from "@/utils/getDocIcon";
+import { useSearchParams } from "next/navigation";
 
 export default function DocumentsList() {
+
+    const searchParams = useSearchParams()
 
     const [documents, setDocuments] = useState<IDocument[]>([]);
 
     useEffect(() => {
         getDocuments()
-    }, []);
+    }, [searchParams]);
+
+    function getStatusFilter() {
+        const params = new URLSearchParams(searchParams);
+        return params.get('status')?.toString() || '';
+    }
+
+    function getTextFilter() {
+        const params = new URLSearchParams(searchParams);
+        return params.get('text')?.toString() || '';
+    }
+
+    function getFiltersToSetDocuments(documentsToDo: any) {
+
+        const statusFilter = getStatusFilter()
+        const textFilter = getTextFilter()
+
+        if (!statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id))
+        else if (statusFilter && textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.status == statusFilter && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
+        else if (statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.status == statusFilter))
+        else setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
+
+    }
 
     function getDocuments() {
         const db = getDatabase();
@@ -29,8 +54,9 @@ export default function DocumentsList() {
                             ...document,
                             doc_id: key
                         }
-                    }).filter(doc => doc.responsible_user == userService.getUser().id)
-                    setDocuments(documentsToDo)
+                    })
+
+                    getFiltersToSetDocuments(documentsToDo)
                 } else {
                     console.log("O objeto 'documents' não foi encontrado no banco de dados.");
                 }
