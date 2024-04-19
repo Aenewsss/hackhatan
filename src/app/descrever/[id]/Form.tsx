@@ -40,10 +40,11 @@ export default function Form({ doc_id }: FormProps) {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const documentData = snapshot.val() as IDocument;
+                    console.log('documentData', documentData)
 
-                    console.log(documentData)
+                    if (documentData?.metadata) setDocumentDescription(documentData?.metadata)
+
                     const icon = getDocIcon(getFileName(documentData.doc_path))
-                    console.log('icon', icon)
                     setDocIcon(icon)
                 } else {
                     console.log("O objeto 'documents' não foi encontrado no banco de dados.");
@@ -71,7 +72,7 @@ export default function Form({ doc_id }: FormProps) {
         }
     }
 
-    async function removeDocument(){
+    async function removeDocument() {
         await Firebase.changeDocStatusInProgress(doc_id)
 
         router.push('/')
@@ -89,37 +90,37 @@ export default function Form({ doc_id }: FormProps) {
                 <div className="flex flex-col gap-5">
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Título:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, title: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.title} required onChange={e => setDocumentDescription({ ...documentDescription, title: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Datas:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, dates: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.dates} required onChange={e => setDocumentDescription({ ...documentDescription, dates: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16 text-sm">Âmbito e Conteúdo:</label>
-                        <textarea required onChange={e => setDocumentDescription({ ...documentDescription, content: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full"></textarea>
+                        <textarea value={documentDescription.content} required onChange={e => setDocumentDescription({ ...documentDescription, content: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full"></textarea>
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16 text-sm">Pontos de acesso e indexação de assunto:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, access_points: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.access_points} required onChange={e => setDocumentDescription({ ...documentDescription, access_points: e.target.value })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
 
                     <h2 className="text-blue-800 mt-4 font-semibold">Marcadores Sociais</h2>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Raça:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, race: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.social_tags.race} required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, race: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Gênero:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, gender: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.social_tags.gender} required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, gender: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Sexualidade:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, sexuality: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.social_tags.sexuality} required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, sexuality: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                     <div className="flex gap-6 items-center">
                         <label className="text-blue-800 max-w-16">Regionalidade:</label>
-                        <input required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, regionality: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
+                        <input value={documentDescription.social_tags.regionality} required onChange={e => setDocumentDescription({ ...documentDescription, social_tags: { ...documentDescription.social_tags, regionality: e.target.value } })} className="bg-gray-400 rounded-full px-3 py-2 w-full" type="text" />
                     </div>
                 </div>
             </div>

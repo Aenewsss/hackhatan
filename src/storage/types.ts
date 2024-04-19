@@ -21,6 +21,7 @@ export interface IDocument {
     doc_id: string
     responsible_user?: string
     metadata?: IMetadataDocument
+    responsible_validator?: IValidator
 }
 
 export enum DocumentStatusEnum {
@@ -52,4 +53,10 @@ export interface IUser {
     number_of_validations: number
     level: number
     name?: string
+}
+
+export interface IValidator {
+    id: string
+    message: string
+    name: string
 }

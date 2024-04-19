@@ -8,6 +8,6 @@ export function getFileName(path: string) {
     if (filename.includes("_FIN_")) return 'Texto'
     if (filename.includes("_MAP_")) return 'Mapa'
     if (filename.includes("_ICO_")) return 'Imagem'
-
+    
     return filename
 }

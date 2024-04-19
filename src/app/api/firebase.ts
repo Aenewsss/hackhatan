@@ -270,7 +270,8 @@ class FirebaseConfig {
         try {
             await update(docRef, {
                 status: DocumentStatusEnum.TO_DO,
-                responsible_user: ''
+                responsible_user: '',
+                responsible_validator: {} 
             });
 
         } catch (error) {

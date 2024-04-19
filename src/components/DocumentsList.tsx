@@ -84,7 +84,8 @@ export default function DocumentsList() {
     }
 
     function checkActionToDoc(doc_id: string, status: DocumentStatusEnum) {
-        if (status == DocumentStatusEnum.IN_PROGRESS) return `/descrever/${doc_id}`
+        const document = documents.find(doc => doc.doc_id == doc_id)
+        if (status == DocumentStatusEnum.IN_PROGRESS || (status === DocumentStatusEnum.TO_CHANGE && document?.responsible_validator?.id != userService.getUser().id)) return `/descrever/${doc_id}`
         return '/'
     }
 
