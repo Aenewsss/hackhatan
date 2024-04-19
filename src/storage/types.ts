@@ -51,4 +51,5 @@ export interface IUser {
     number_of_descriptions: number
     number_of_validations: number
     level: number
+    name?: string
 }

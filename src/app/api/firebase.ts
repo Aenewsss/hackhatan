@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { IUser } from "@/storage/types";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { child, equalTo, get, getDatabase, limitToLast, orderByChild, query, ref, set } from "firebase/database";
+import { getAuth, getAdditionalUserInfo } from "firebase/auth";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 
 class FirebaseConfig {
 
@@ -28,7 +29,7 @@ class FirebaseConfig {
 
     }
 
-    addUserToDatabase = async (user_id: string) => {
+    addUserToDatabase = async (user_id: string, user_name:string) => {
 
         const isUserExists = async (user_id: string) => {
             const db = getDatabase();
@@ -55,7 +56,8 @@ class FirebaseConfig {
                     points: 10,
                     number_of_descriptions: 0,
                     number_of_validations: 0,
-                    level: 0
+                    level: 0,
+                    user_name
                 };
 
                 await set(child(usersRef, user_id), userData);
@@ -134,7 +136,7 @@ class FirebaseConfig {
 
                 snapshot.forEach((childSnapshot) => {
                     const userData = childSnapshot.val() as IUser;
-
+                    console.log(userData)
                     if (topUsers.length < 10) {
                         topUsers.push(userData)
                     } else {

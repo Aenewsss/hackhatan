@@ -24,7 +24,7 @@ export const login = () => {
             storageService.setItem(UserEnum.USER_EMAIL, user.email)
             storageService.setItem(UserEnum.USER_ID, user.uid)
 
-            await Firebase.addUserToDatabase(user.uid)
+            await Firebase.addUserToDatabase(user.uid, user.displayName || '')
 
             cookie.set('hackathan_token', await user.getIdToken())
             window.location.assign('/')

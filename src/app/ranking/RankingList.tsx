@@ -36,7 +36,7 @@ export default function RankingList() {
                                 <td className="px-6 py-4 whitespace-nowrap text-green-600">
                                     {index + 1}
                                 </td>
-                                <td className="px-6 py-4">Nome</td>
+                                <td className="px-6 py-4">{topUser.name}</td>
                                 <td className="px-6 py-4">{topUser.level}</td>
                                 <td className="px-6 py-4 text-3xl">{topUser.points} xp</td>
                             </tr>
