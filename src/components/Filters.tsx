@@ -38,7 +38,7 @@ export default function Profile() {
                 <input onChange={e => setTextFilter(e.target.value)} placeholder="Digite sua busca..." className="border rounded-md border-gray-400 w-full py-2 px-10" type="text" />
                 <button onClick={filterText} className="absolute right-0 rounded-md p-2 bg-blue-800 text-white hover:scale-105 transition-all">Buscar</button>
             </div>
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-4 overflow-auto overflow-y-hidden py-4">
                 <button onClick={_ => filterStatus(FiltersEnum.IN_PROGRESS)} className="hover:scale-105 transition-all rounded-full bg-blue-800 text-white px-3 py-2">Em Progresso</button>
                 <button onClick={_ => filterStatus(FiltersEnum.IN_ANALYSIS)} className="hover:scale-105 transition-all rounded-full bg-violet-500 text-white px-3 py-2">Em Análise</button>
                 <button onClick={_ => filterStatus(FiltersEnum.CONCLUDED)} className="hover:scale-105 transition-all rounded-full bg-green-500 text-white px-3 py-2">Concluídos</button>

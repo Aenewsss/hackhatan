@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { FirebaseApp, initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 class FirebaseConfig {
 
@@ -19,6 +20,11 @@ class FirebaseConfig {
         };
 
         this.appSDK = initializeApp(firebaseConfig);
+        const database = getDatabase();
+    }
+
+    initializeDatabase(){
+        
     }
 
 }

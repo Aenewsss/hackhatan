@@ -11,3 +11,9 @@ export enum FiltersEnum {
     CONCLUDED = 'CONCLUDED',
     TO_CHANGE = 'TO_CHANGE',
 }
+
+export interface IDocument {
+    doc_path: string
+    final_date: string
+    urgency: number
+}

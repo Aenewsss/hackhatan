@@ -19,7 +19,7 @@ export default function Toolbar() {
     }
 
     return (
-        <div className="w-full fixed z-10 bottom-0 border-t border border-black border-l-0 border-r-0 border-b-0 flex justify-between p-4 rounded-t-3xl">
+        <div className="w-full fixed z-10 bg-white bottom-0 border-t border border-black border-l-0 border-r-0 border-b-0 flex justify-between p-4 rounded-t-3xl">
             <Link href="/ranking" className={`${getIconClass('/ranking')} cursor-pointer rounded-full p-5 flex items-center justify-center`}>
                 <Image src={`/icons/trophy${getImageSelected('/ranking')}.svg`} width={36} height={36} alt="Ícone Troféu para o ranking" />
             </Link>
