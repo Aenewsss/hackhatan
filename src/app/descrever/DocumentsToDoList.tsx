@@ -23,7 +23,16 @@ export default function DocumetsToDoList() {
 
     useEffect(() => {
         getDocuments()
-    }, []);
+    }, [searchParams]);
+
+    function getFilter(documentsToDo: any) {
+        const params = new URLSearchParams(searchParams)
+        const actionParam = params.get('action')?.toString()
+
+        if (actionParam == 'description') setDocuments(documentsToDo.filter((doc: any) => doc.status == DocumentStatusEnum.TO_DO && !doc?.responsible_user))
+        else setDocuments(documentsToDo.filter((doc: any) => doc.status == DocumentStatusEnum.IN_ANALYSIS && !doc?.responsible_user))
+
+    }
 
     function getDocuments() {
         Firebase.initializeFirebaseApp()
@@ -41,8 +50,8 @@ export default function DocumetsToDoList() {
                             ...document,
                             doc_id: key
                         }
-                    }).filter(doc => doc.status == DocumentStatusEnum.TO_DO && !doc?.responsible_user)
-                    setDocuments(documentsToDo)
+                    })
+                    getFilter(documentsToDo)
                 } else {
                     console.log("O objeto 'documents' não foi encontrado no banco de dados.");
                 }
@@ -91,7 +100,7 @@ export default function DocumetsToDoList() {
         return actionParam == 'description' ? 'Inicar Descrição' : 'Iniciar Validação'
     }
 
-    if (!documents || documents.length == 0) return <p className="text-red-500">Nenhum documento disponível no momento</p>
+    if (!documents || documents.length == 0) return <p className="text-red-500 mt-4">Nenhum documento disponível no momento</p>
 
     return (
         <>
