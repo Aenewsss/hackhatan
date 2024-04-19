@@ -8,7 +8,7 @@ export default function Login() {
         <main className="h-screen">
             <Image className="h-1/2 w-full object-cover" src="/auth/first-carousel.svg" width={300} height={300} alt="Primeira Imagem de fundo" />
             <div className="flex h-1/2 flex-col px-4 gap-10">
-                <h1 className="text-2xl font-bold">Arquivo Nacional</h1>
+                <h1 className="text-2xl font-bold mt-4">Arquivo Nacional</h1>
                 <div className="flex flex-col gap-2">
                     <button disabled={true} className="pointer-events-none text-white bg-gray-500 border rounded-xl px-3 py-2 flex justify-center items-center gap-2 font-medium hover:scale-105 transition-all hover:bg-white hover:text-grabg-gray-500 hover:border-grabg-gray-500">
                         Entrar com gov.br
