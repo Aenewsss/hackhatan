@@ -1,8 +1,14 @@
+"use client"
+
+import Profile from "@/components/Profile";
+import Filters from "@/components/Filters";
+
 export default function Home() {
 
   return (
-    <main>
-        <h1 className="tex-black m-5">Tela de Perfil</h1>
+    <main className="mt-10 px-4">
+      <Profile />
+      <Filters />
     </main>
   );
 }

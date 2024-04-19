@@ -16,11 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
-        {children}
-        <Toolbar />
-      </body>
-    </html>
+      <html lang="pt-BR">
+        <body className={poppins.className}>
+          {children}
+          <Toolbar />
+        </body>
+      </html>
   );
 }
