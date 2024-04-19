@@ -82,7 +82,8 @@ export default function DocumetsToDoList() {
         const docRef = ref(database, `documents/${doc_id}`);
         try {
             await update(docRef, {
-                responsible_user: userService.getUser().id
+                responsible_user: userService.getUser().id,
+                status: DocumentStatusEnum.IN_PROGRESS,
             }); 
         } catch (error) {
             console.error("Erro ao atribuir documento ao usuário:", error);
