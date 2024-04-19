@@ -262,7 +262,20 @@ class FirebaseConfig {
         } catch (error) {
             console.error("Erro ao atribuir documento ao usuário:", error);
         }
+    }
 
+    changeDocStatusInProgress = async (doc_id: string) => {
+        const database = getDatabase();
+        const docRef = ref(database, `documents/${doc_id}`);
+        try {
+            await update(docRef, {
+                status: DocumentStatusEnum.TO_DO,
+                responsible_user: ''
+            });
+
+        } catch (error) {
+            console.error("Erro ao atribuir documento ao usuário:", error);
+        }
     }
 
 }

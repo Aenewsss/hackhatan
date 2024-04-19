@@ -17,7 +17,7 @@ interface FormProps {
 export default function Form({ doc_id }: FormProps) {
 
     const router = useRouter()
-    
+
     const [documentDescription, setDocumentDescription] = useState<IMetadataDocument>({
         title: '', content: '', access_points: '', dates: '',
         social_tags: {
@@ -69,8 +69,12 @@ export default function Form({ doc_id }: FormProps) {
         } catch (error) {
             console.error("Erro ao atribuir documento ao usuário:", error);
         }
+    }
 
+    async function removeDocument(){
+        await Firebase.changeDocStatusInProgress(doc_id)
 
+        router.push('/')
     }
 
     return (
@@ -120,12 +124,18 @@ export default function Form({ doc_id }: FormProps) {
                 </div>
             </div>
 
-            <button type="submit" className="border-2 border-black rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105">
-                <div className="bg-green-500 p-4 rounded-full">
-                    <Image src="/icons/arrow-right.svg" width={20} height={20} alt="Ícone de seta para ir para a análise" />
-                </div>
-                Enviar para análise
-            </button>
+            <div className="flex gap-4 justify-between">
+                <button onClick={removeDocument} type="button" className="border-2 p-4 bg-red-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105">
+                    Remover documento
+                </button>
+
+                <button type="submit" className="border-2 border-black rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105">
+                    <div className="bg-green-500 p-4 rounded-full">
+                        <Image src="/icons/arrow-right.svg" width={20} height={20} alt="Ícone de seta para ir para a análise" />
+                    </div>
+                    Enviar para análise
+                </button>
+            </div>
         </form>
     )
 }
