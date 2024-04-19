@@ -2,22 +2,22 @@ import { IMetadataDocument } from "@/storage/types";
 import { useEffect, useState } from "react";
 
 interface ProgressBarProps {
-    documentDescription: IMetadataDocument | any
+    documentValidation: IMetadataDocument | any
 }
 
-export default function ProgressBar({ documentDescription }: ProgressBarProps) {
+export default function ProgressBar({ documentValidation }: ProgressBarProps) {
 
     const [percentage, setPercentage] = useState('0%');
 
     useEffect(() => {
         setPercentage(getFilledPercent())
-    }, [documentDescription]);
+    }, [documentValidation]);
 
     function getFilledPercent() {
-        if (!documentDescription) return '0%'
+        if (!documentValidation) return '0%'
 
-        const totalFields = countKeys(documentDescription)
-        const totalFieldsFilled = countFilledValues(documentDescription)
+        const totalFields = countKeys(documentValidation)
+        const totalFieldsFilled = countFilledValues(documentValidation)
 
         const percentage = Math.round((totalFieldsFilled / totalFields) * 100)
 
@@ -60,7 +60,7 @@ export default function ProgressBar({ documentDescription }: ProgressBarProps) {
 
     return (
         <div className="sticky top-5 bg-gray-500 w-full h-10 items-center rounded-md self-center justify-center flex text-white">
-            <div style={{width: `${percentage}`}} className={`bg-green-500 absolute h-full top-0 left-0`}></div>
+            <div style={{ width: `${percentage}` }} className={`bg-green-500 absolute h-full top-0 left-0`}></div>
             <span className="z-10">{percentage}</span>
         </div>
     )

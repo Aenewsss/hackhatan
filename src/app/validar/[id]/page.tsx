@@ -1,10 +1,11 @@
 import Header from "@/components/Header"
+import Form from "./Form"
 
 export default function ValidateDoc({ params }: { params: { id: string } }) {
     return (
-        <main>
+        <div className="p-4">
             <Header />
-            <h1>Validar documento: {params.id}</h1>
-        </main>
+            <Form doc_id={params.id} />
+        </div>
     )
 }

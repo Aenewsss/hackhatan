@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { IUser } from "@/storage/types";
+import { DocumentStatusEnum, IUser } from "@/storage/types";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, getAdditionalUserInfo } from "firebase/auth";
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, get, getDatabase, ref, set, update } from "firebase/database";
 
 class FirebaseConfig {
 
@@ -29,7 +29,7 @@ class FirebaseConfig {
 
     }
 
-    addUserToDatabase = async (user_id: string, user_name:string) => {
+    addUserToDatabase = async (user_id: string, user_name: string) => {
 
         const isUserExists = async (user_id: string) => {
             const db = getDatabase();
@@ -156,6 +156,114 @@ class FirebaseConfig {
             return []
         }
     };
+
+    changeDocStatusToConcluded = async (doc_id: string, user_id: string, user_name: string) => {
+        const database = getDatabase();
+        const docRef = ref(database, `documents/${doc_id}`);
+        try {
+            await update(docRef, {
+                status: DocumentStatusEnum.CONCLUDED,
+                responsible_validator: {
+                    id: user_id,
+                    name: user_name
+                }
+            });
+
+        } catch (error) {
+            console.error("Erro ao atribuir documento ao usuário:", error);
+        }
+
+    }
+
+    registerValidationSuccess = async (user_id: string) => {
+        const database = getDatabase();
+        const userRef = ref(database, `users/${user_id}`);
+
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+
+            const currentPoints = snapshot.val().points
+            const validations = snapshot.val().number_of_validations
+
+            try {
+                await update(userRef, {
+                    points: currentPoints + 10,
+                    number_of_validations: validations + 1
+                });
+                this.verifyIfUserCanLevelUp(user_id)
+            } catch (error) {
+                console.error("Erro ao atribuir documento ao usuário:", error);
+            }
+        }
+    }
+    registerDescriptionSuccess = async (user_id: string) => {
+        const database = getDatabase();
+        const userRef = ref(database, `users/${user_id}`);
+
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+
+            const currentPoints = snapshot.val().points
+            const descriptions = snapshot.val().number_of_descriptions
+
+            try {
+                await update(userRef, {
+                    points: currentPoints + 20,
+                    number_of_descriptions: descriptions + 1
+                });
+                this.verifyIfUserCanLevelUp(user_id)
+            } catch (error) {
+                console.error("Erro ao atribuir documento ao usuário:", error);
+            }
+        }
+    }
+    verifyIfUserCanLevelUp = async (user_id: string) => {
+        const database = getDatabase();
+        const userRef = ref(database, `users/${user_id}`);
+
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+
+            const currentPoints = snapshot.val().points
+            const level = snapshot.val().level
+
+            if (level == 0 && currentPoints >= 160) {
+                await update(userRef, {
+                    level: 1
+                });
+            } else if (level == 1 && currentPoints >= 500) {
+                await update(userRef, {
+                    level: 2
+                });
+            } else if (level == 2 && currentPoints >= 1000) {
+                await update(userRef, {
+                    level: 3
+                });
+            }
+        }
+    }
+
+    changeDocStatusToReject = async (doc_id: string, user_id: string, user_name: string, message: string) => {
+        const database = getDatabase();
+        const docRef = ref(database, `documents/${doc_id}`);
+        try {
+            await update(docRef, {
+                status: DocumentStatusEnum.TO_CHANGE,
+                responsible_validator: {
+                    id: user_id,
+                    name: user_name,
+                    message
+                }
+            });
+
+        } catch (error) {
+            console.error("Erro ao atribuir documento ao usuário:", error);
+        }
+
+    }
 
 }
 

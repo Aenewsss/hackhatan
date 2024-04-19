@@ -33,10 +33,10 @@ export default function DocumentsList() {
         const statusFilter = getStatusFilter()
         const textFilter = getTextFilter()
 
-        if (!statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id))
-        else if (statusFilter && textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.status == statusFilter && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
-        else if (statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.status == statusFilter))
-        else setDocuments(documentsToDo.filter((doc: any) => doc.responsible_user == userService.getUser().id && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
+        if (!statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => (doc.responsible_user == userService.getUser().id || doc.responsible_validator?.id == userService.getUser().id)))
+        else if (statusFilter && textFilter) setDocuments(documentsToDo.filter((doc: any) => (doc.responsible_user == userService.getUser().id || doc.responsible_validator?.id == userService.getUser().id) && doc.status == statusFilter && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
+        else if (statusFilter && !textFilter) setDocuments(documentsToDo.filter((doc: any) => (doc.responsible_user == userService.getUser().id || doc.responsible_validator?.id == userService.getUser().id) && doc.status == statusFilter))
+        else setDocuments(documentsToDo.filter((doc: any) => (doc.responsible_user == userService.getUser().id || doc.responsible_validator?.id == userService.getUser().id) && doc.doc_path.toLowerCase().includes(textFilter.toLocaleLowerCase())))
 
     }
 

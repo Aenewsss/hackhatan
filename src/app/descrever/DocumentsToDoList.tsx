@@ -28,9 +28,8 @@ export default function DocumetsToDoList() {
     function getFilter(documentsToDo: any) {
         const params = new URLSearchParams(searchParams)
         const actionParam = params.get('action')?.toString()
-
         if (actionParam == 'description') setDocuments(documentsToDo.filter((doc: any) => doc.status == DocumentStatusEnum.TO_DO && !doc?.responsible_user))
-        else setDocuments(documentsToDo.filter((doc: any) => doc.status == DocumentStatusEnum.IN_ANALYSIS && !doc?.responsible_user))
+        else setDocuments(documentsToDo.filter((doc: any) => doc.status == DocumentStatusEnum.IN_ANALYSIS && doc?.responsible_user != userService.getUser().id))
 
     }
 
@@ -70,15 +69,20 @@ export default function DocumetsToDoList() {
     }
 
     async function assignDocToUser(doc_id: string) {
-        const database = getDatabase();
-        const docRef = ref(database, `documents/${doc_id}`);
-        try {
-            await update(docRef, {
-                responsible_user: userService.getUser().id,
-                status: DocumentStatusEnum.IN_PROGRESS,
-            });
-        } catch (error) {
-            console.error("Erro ao atribuir documento ao usuário:", error);
+
+        const params = new URLSearchParams(searchParams)
+        const actionParam = params.get('action')?.toString()
+        if (actionParam == 'description'){
+            const database = getDatabase();
+            const docRef = ref(database, `documents/${doc_id}`);
+            try {
+                await update(docRef, {
+                    responsible_user: userService.getUser().id,
+                    status: DocumentStatusEnum.IN_PROGRESS,
+                });
+            } catch (error) {
+                console.error("Erro ao atribuir documento ao usuário:", error);
+            }
         }
     }
 
