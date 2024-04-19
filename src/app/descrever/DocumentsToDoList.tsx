@@ -135,9 +135,6 @@ export default function DocumetsToDoList() {
                         <div className="p-6 rounded-sm bg-gray-400">
                             <Image src={`/describe/${getDocIcon(selectedDoc.doc_type)}-type.svg`} width={200} height={200} alt="Tipo do documento" />
                         </div>
-                        {/* <div className="flex flex-col gap-4">
-                            Tarefas
-                        </div> */}
 
                         <p className="bg-gray-400 text-white self-end flex p-2 ">Data de entrega: {formatDate(selectedDoc.final_date)}</p>
 
