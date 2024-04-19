@@ -279,6 +279,8 @@ class FirebaseConfig {
         }
     }
 
+    
+
 }
 
 const Firebase = new FirebaseConfig()

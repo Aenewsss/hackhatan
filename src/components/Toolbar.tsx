@@ -19,18 +19,18 @@ export default function Toolbar() {
     }
 
     return (
-        <div className="w-full fixed z-10 bg-white bottom-0 border-t border border-black border-l-0 border-r-0 border-b-0 flex justify-between p-4 rounded-t-3xl">
+        <div className="w-full fixed z-10 bg-white bottom-0 border-t border border-black border-l-0 border-r-0 border-b-0 flex justify-between px-4 py-2 rounded-t-3xl">
             <Link href="/ranking" className={`${getIconClass('/ranking')} cursor-pointer rounded-full p-5 flex items-center justify-center`}>
-                <Image src={`/icons/trophy${getImageSelected('/ranking')}.svg`} width={36} height={36} alt="Ícone Troféu para o ranking" />
+                <Image src={`/icons/trophy${getImageSelected('/ranking')}.svg`} width={30} height={30} alt="Ícone Troféu para o ranking" />
             </Link>
             <Link href="/" className={`${getIconClass('/')} cursor-pointer rounded-full p-5 flex items-center justify-center`}>
-                <Image src={`/icons/home${getImageSelected('/')}.svg`} width={36} height={36} alt="Ícone da Home" />
+                <Image src={`/icons/home${getImageSelected('/')}.svg`} width={30} height={30} alt="Ícone da Home" />
             </Link>
             <Link href="/descrever" className={`${getIconClass('/descrever')} cursor-pointer rounded-full p-5 flex items-center justify-center`}>
-                <Image src={`/icons/sword${getImageSelected('/descrever')}.svg`} width={36} height={36} alt="Ícone de Espada para buscar documentos para descrever" />
+                <Image src={`/icons/sword${getImageSelected('/descrever')}.svg`} width={30} height={30} alt="Ícone de Espada para buscar documentos para descrever" />
             </Link>
             <Link href="/treinamento" className={`${getIconClass('/treinamento')} cursor-pointer rounded-full p-5 flex items-center justify-center`}>
-                <Image src={`/icons/graduation${getImageSelected('/treinamento')}.svg`} width={36} height={36} alt="Ícone Treinamento" />
+                <Image src={`/icons/graduation${getImageSelected('/treinamento')}.svg`} width={30} height={30} alt="Ícone Treinamento" />
             </Link>
         </div>
     )
