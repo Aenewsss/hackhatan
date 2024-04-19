@@ -3,6 +3,9 @@ import userService from "@/storage/user.service";
 import { get, getDatabase, ref } from "firebase/database";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Urgency from "./Urgency";
+import Image from "next/image";
+import { getDocIcon } from "@/utils/getDocIcon";
 
 export default function DocumentsList() {
 
@@ -37,20 +40,26 @@ export default function DocumentsList() {
             });
     }
 
-    function getUrgency(urgency: number) {
-        return urgency == 1
-            ? 'Baixa'
-            : urgency == 2
-                ? 'Média'
-                : 'Alta'
-    }
-
     function getFileName(path: string) {
         const pathArr = path.split('/')
         const filenameArr = pathArr[pathArr.length - 1].split('?')
         const filename = filenameArr[0]
 
         return filename
+    }
+
+    function setDocStatusBorder(status: DocumentStatusEnum) {
+        switch (status) {
+            case DocumentStatusEnum.IN_PROGRESS: return 'border-blue-800'
+            case DocumentStatusEnum.CONCLUDED: return 'border-green-500'
+            case DocumentStatusEnum.TO_CHANGE: return 'border-orange-500'
+            case DocumentStatusEnum.IN_ANALYSIS: return 'border-violet-500'
+        }
+    }
+
+    function checkActionToDoc(doc_id: string, status: DocumentStatusEnum) {
+        if (status == DocumentStatusEnum.IN_PROGRESS) return `/descrever/${doc_id}`
+        return '/'
     }
 
     if (!documents || documents.length == 0) return <p className="mt-10 text-center text-red-500">
@@ -64,11 +73,15 @@ export default function DocumentsList() {
         <div className="mt-6 flex flex-col gap-6">
             {
                 documents.map((doc, index) => (
-                    <div key={index} className="flex flex-col gap-4 bg-gray-300 p-4 rounded-md overflow-hidden">
-                        <p>Arquivo: {getFileName(doc?.doc_path)}</p>
-                        <p>Data de entrega: {doc?.final_date}</p>
-                        <p>Urgência: {getUrgency(doc?.urgency)}</p>
-                    </div>
+                    <Link href={checkActionToDoc(doc.doc_id, doc.status)} key={index} className={`border-2 flex flex gap-6 bg-gray-300 p-4 rounded-md overflow-hidden ${setDocStatusBorder(doc.status)}`}>
+                        <Image src={`/describe/${getDocIcon(getFileName(doc?.doc_path))}-type.svg`} width={76} height={76} alt="Tipo do documento" />
+
+                        <div className="flex flex-col gap-2">
+                            <p>Arquivo: {getFileName(doc?.doc_path)}</p>
+                            <p>Data de entrega: {doc?.final_date}</p>
+                            <Urgency urgency={doc?.urgency} />
+                        </div>
+                    </Link>
                 ))
             }
 

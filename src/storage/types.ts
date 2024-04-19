@@ -23,7 +23,7 @@ export interface IDocument {
 }
 
 export enum DocumentStatusEnum {
-    TO_DO = "to_do",
+    TO_DO = "TO_DO",
     IN_PROGRESS = 'IN_PROGRESS',
     IN_ANALYSIS = 'IN_ANALYSIS',
     CONCLUDED = 'CONCLUDED',

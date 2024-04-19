@@ -9,6 +9,7 @@ import Urgency from "@/components/Urgency";
 import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import userService from "@/storage/user.service";
+import { getDocIcon } from "@/utils/getDocIcon";
 
 export default function DocumetsToDoList() {
     const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -60,15 +61,6 @@ export default function DocumetsToDoList() {
         return filename
     }
 
-    function getDocIcon(type: string) {
-        if (type == 'Vídeo') return 'video'
-        else if (type == 'Texto') return 'text'
-        else if (type == 'Mapa') return 'map'
-        else if (type == 'Imagem') return 'image'
-        else if (type == 'Áudio') return 'audio'
-        else return 'image'
-    }
-
     function chooseDoc(doc: IDocument) {
         setSelectedDoc({
             doc_id: doc.doc_id, final_date: doc.final_date,
@@ -89,6 +81,8 @@ export default function DocumetsToDoList() {
             console.error("Erro ao atribuir documento ao usuário:", error);
         }
     }
+
+    if(!documents || documents.length == 0) return <p className="text-red-500">Nenhum documento disponível no momento</p>
 
     return (
         <>
