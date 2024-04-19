@@ -22,8 +22,9 @@ export const login = () => {
 
             console.log(user)
 
-            storageService.setItem(UserEnum.USER_NAME, user?.displayName)
-            storageService.setItem(UserEnum.USER_EMAIL, user?.email)
+            storageService.setItem(UserEnum.USER_NAME, user.displayName)
+            storageService.setItem(UserEnum.USER_EMAIL, user.email)
+            storageService.setItem(UserEnum.USER_ID, user.uid)
 
             cookie.set('hackathan_token', await user.getIdToken())
             window.location.assign('/')
@@ -42,7 +43,8 @@ export const logout = () => {
     signOut(auth)
         .then(result => {
             cookie.remove('hackathan_token')
+            storageService.removeAll()
             window.location.assign('/login')
         })
-        .catch(error => console.error('Erro ao tentar sair:',error))
+        .catch(error => console.error('Erro ao tentar sair:', error))
 }

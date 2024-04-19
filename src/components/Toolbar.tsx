@@ -8,7 +8,7 @@ export default function Toolbar() {
 
     const pathname = usePathname()
 
-    if (pathname.includes('login')) return null
+    if (pathname.includes('login') || pathname.includes('/descrever/')) return null
 
     function getIconClass(path: string) {
         return pathname == path ? 'bg-blue-800' : 'bg-gray-300'
