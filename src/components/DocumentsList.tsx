@@ -91,9 +91,8 @@ export default function DocumentsList() {
 
     if (!documents || documents.length == 0) return <p className="mt-10 text-center text-red-500">
         Você ainda não possui nenhum documento
-        <p>
-            <Link className="underline text-blue-700" href="/descrever">Clique aqui para começar a descrever</Link>
-        </p>
+        <br />
+        <Link className="underline text-blue-700" href="/descrever">Clique aqui para começar a descrever</Link>
     </p>
 
     return (

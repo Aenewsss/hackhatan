@@ -142,13 +142,13 @@ export default function Form({ doc_id }: FormProps) {
             </div>
 
             <div className="flex gap-4 justify-between">
-                <button onClick={rejectDocument} type="button" className="border-2 p-4 bg-red-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-xl">
+                <button onClick={rejectDocument} type="button" className="border-2 p-4 bg-red-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-base">
                     Rejeitar
                 </button>
-                <button onClick={openModalChanges} type="button" className="border-2 p-4 bg-blue-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-xl">
+                <button onClick={openModalChanges} type="button" className="border-2 p-4 bg-blue-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-base">
                     Solicitar Alterações
                 </button>
-                <button type="submit" className="border-2 p-4 bg-green-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-xl">
+                <button type="submit" className="border-2 p-4 bg-green-500 text-white rounded-full self-center flex gap-2 items-center pr-4 transition-all hover:scale-105 text-base">
                     Aprovar
                 </button>
             </div>

@@ -1,14 +1,26 @@
+import Firebase from "@/app/api/firebase";
 import userService from "@/storage/user.service";
 import { logout } from "@/utils/auth";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Filters() {
 
-    const { email, level, name } = userService.getUser()
+    const [CurrentUser, setCurrentUser] = useState<any>();
 
-    function getLevel() {
+    useEffect(() => {
+        getCurrentUser()
+    }, []);
+
+    async function getCurrentUser() {
+        const user = await Firebase.getUserById(userService.getUser().id)
+
+        const email = userService.getUser().email
         
+        setCurrentUser({...user, email})
     }
+
+    if(!CurrentUser) return <p>Usuário não cadastrado</p>
 
     return (
         <div className="flex gap-4">
@@ -19,12 +31,12 @@ export default function Filters() {
 
             <div>
                 <ul>
-                    <li>{name}</li>
-                    <li>{email}</li>
+                    <li>{CurrentUser.name}</li>
+                    <li>{CurrentUser.email}</li>
                     <li className="flex gap-2">
-                        <Image src={level >= 1 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 1" />
-                        <Image src={level >= 2 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 2" />
-                        <Image src={level >= 3 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 3" />
+                        <Image src={CurrentUser.level >= 1 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 1" />
+                        <Image src={CurrentUser.level >= 2 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 2" />
+                        <Image src={CurrentUser.level >= 3 ? '/icons/star-filled.svg' : '/icons/star.svg'} width={30} height={30} alt="Estrela Nível 3" />
                     </li>
                 </ul>
             </div>

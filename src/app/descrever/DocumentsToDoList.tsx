@@ -130,7 +130,7 @@ export default function DocumetsToDoList() {
                     <button onClick={_ => setShowDocument(false)} className="bg-gray-100 p-4 rounded-full flex self-start">
                         <Image src="/icons/arrow-back.svg" width={30} height={30} alt="ícone de seta para voltar à home" />
                     </button>
-                    <div className="bg-gray-100 p-6 w-full flex flex-col gap-4 items-center h-1/2 rounded-md">
+                    <div className="bg-gray-100 p-6 w-full flex flex-col gap-4 items-center rounded-md">
                         <p className="bg-gray-400 text-white self-start flex p-2">Arquivo de {selectedDoc.doc_type}</p>
                         <div className="p-6 rounded-sm bg-gray-400">
                             <Image src={`/describe/${getDocIcon(selectedDoc.doc_type)}-type.svg`} width={200} height={200} alt="Tipo do documento" />

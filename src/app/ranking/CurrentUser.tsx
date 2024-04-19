@@ -18,7 +18,7 @@ export default function CurrentUser() {
     }
 
     return (
-        <div className="flex gap-4 p-4 text-white absolute bg-gray-700 rounded-md mt-10">
+        <div className="flex flex-col gap-4 p-4 text-white absolute bg-gray-700 rounded-md mt-10">
             <span className="flex gap-2 font-bold">
                 <span className="font-medium">Nome:</span>
                 {currentUser.name}
