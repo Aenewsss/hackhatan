@@ -7,8 +7,6 @@ import DocumentsList from "@/components/DocumentsList";
 
 export default function Home() {
 
-  window.scrollTo(0,1)
-
   return (
     <main className="mt-10 px-4 mb-[200px]">
       <Profile />
