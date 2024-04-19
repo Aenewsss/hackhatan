@@ -101,7 +101,7 @@ export default function DocumetsToDoList() {
 
         const actionParam = params.get('action')?.toString()
 
-        return actionParam == 'description' ? 'Inicar Descrição' : 'Iniciar Validação'
+        return actionParam == 'description' ? 'Iniciar Descrição' : 'Iniciar Validação'
     }
 
     if (!documents || documents.length == 0) return <p className="text-red-500 mt-4">Nenhum documento disponível no momento</p>
