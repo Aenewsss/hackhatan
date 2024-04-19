@@ -20,6 +20,7 @@ export interface IDocument {
     status: DocumentStatusEnum
     doc_id: string
     responsible_user?: string
+    metadata?: IMetadataDocument
 }
 
 export enum DocumentStatusEnum {
@@ -28,4 +29,19 @@ export enum DocumentStatusEnum {
     IN_ANALYSIS = 'IN_ANALYSIS',
     CONCLUDED = 'CONCLUDED',
     TO_CHANGE = 'TO_CHANGE',
+}
+
+export interface IMetadataDocument {
+    title:string
+    dates:string
+    content:string
+    access_points:string
+    social_tags: ISocialTags
+}
+
+export interface ISocialTags {
+    race: string
+    gender:string
+    sexuality:string
+    regionality:string
 }

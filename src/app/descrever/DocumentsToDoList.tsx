@@ -10,6 +10,7 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import userService from "@/storage/user.service";
 import { getDocIcon } from "@/utils/getDocIcon";
+import { getFileName } from "@/utils/getFileName";
 
 export default function DocumetsToDoList() {
     const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -45,20 +46,6 @@ export default function DocumetsToDoList() {
             .catch((error) => {
                 console.error("Erro ao resgatar o objeto 'documents':", error);
             });
-    }
-
-    function getFileName(path: string) {
-        const pathArr = path.split('/')
-        const filenameArr = pathArr[pathArr.length - 1].split('?')
-        const filename = filenameArr[0]
-
-        if (filename.includes("_FIL_")) return 'Vídeo'
-        if (filename.includes("_ACI_")) return 'Texto'
-        if (filename.includes("_FIN_")) return 'Texto'
-        if (filename.includes("_MAP_")) return 'Mapa'
-        if (filename.includes("_ICO_")) return 'Imagem'
-
-        return filename
     }
 
     function chooseDoc(doc: IDocument) {

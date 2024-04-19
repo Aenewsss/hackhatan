@@ -73,7 +73,7 @@ export default function DocumentsList() {
         <div className="mt-6 flex flex-col gap-6">
             {
                 documents.map((doc, index) => (
-                    <Link href={checkActionToDoc(doc.doc_id, doc.status)} key={index} className={`border-2 flex flex gap-6 bg-gray-300 p-4 rounded-md overflow-hidden ${setDocStatusBorder(doc.status)}`}>
+                    <Link href={checkActionToDoc(doc.doc_id, doc.status)} key={index} className={`border-4 flex gap-6 bg-gray-300 p-4 rounded-md overflow-hidden ${setDocStatusBorder(doc.status)}`}>
                         <Image src={`/describe/${getDocIcon(getFileName(doc?.doc_path))}-type.svg`} width={76} height={76} alt="Tipo do documento" />
 
                         <div className="flex flex-col gap-2">
