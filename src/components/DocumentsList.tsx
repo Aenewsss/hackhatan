@@ -22,6 +22,7 @@ export default function DocumentsList() {
                     const documentsData = snapshot.val();
                     const documentsToDo = Object.entries(documentsData).map(([key, document]) => {
                         return {
+                            // @ts-ignore
                             ...document,
                             doc_id: key
                         }
